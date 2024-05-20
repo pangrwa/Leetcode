@@ -1,40 +1,26 @@
 class Solution {
 public:
-    int res = 0;
-    int size; 
-    stack<int> trace; 
+    int currentXOR = 0; 
+    int res = 0; 
     int subsetXORSum(vector<int>& nums) {
-        size = nums.size(); 
-        backtrack(0, nums); 
+        backtrack(0, nums);
         return res; 
     }
-
-    void backtrack(int cur, vector<int>& nums) {
-        if (cur == size) {
-            res += calcXOR(nums); 
+    void backtrack(int index, vector<int>& nums) {
+        if (index == nums.size()) {
+            res += currentXOR; 
             return; 
         }
-        // include cur
-        trace.push(cur); 
-        backtrack(cur + 1, nums);
-        // exclue cur
-        trace.pop(); 
-        backtrack(cur + 1, nums);
-    }
-
-    int calcXOR(vector<int>& nums) {
-        stack<int> copy = trace; 
-        int start = 0;
-        while (!copy.empty()) {
-            start = start ^ (nums[copy.top()]); 
-            copy.pop(); 
-        }
-        // reverse start
-        start = start ^ 0; 
-        return start; 
+        // include current
+        currentXOR = currentXOR ^ (nums[index]); 
+        backtrack(index + 1, nums); 
+        // remove current XOR
+        currentXOR = currentXOR ^ (nums[index]);
+        backtrack(index + 1, nums); 
     }
 };
 
 /*
-count the number of subsets? 
-*/ 
+note the commutative propertly of XOR
+a = a XOR x XOR x (i can back the number by applying twice)
+*/
