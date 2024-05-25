@@ -7,9 +7,7 @@ public:
         }
 
         vector<vector<string>> dp(s.size() + 1, vector<string>(0, ""));
-        unordered_set<int> validIdx;
         dp[0].push_back(""); 
-        validIdx.insert(-1); 
         
         for (int i = 0; i < s.size(); ++i) {
             for (int j = 0; j <= i; ++j) {
@@ -23,7 +21,6 @@ public:
                         stn += cur; 
                         dp[i + 1].push_back(stn); 
                     }
-                    // validIdx.insert(i); 
                 }
             }
         }
