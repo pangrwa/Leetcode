@@ -14,7 +14,7 @@ public:
         for (int i = 0; i < s.size(); ++i) {
             for (int j = 0; j <= i; ++j) {
                 string cur = s.substr(j, i - j + 1); 
-                if (dict.contains(cur) && validIdx.contains(j - 1)) {
+                if (dict.contains(cur)) {
                     for (const auto& s : dp[j]) {
                         string stn = s; // make a copy
                         if (s != "") {
@@ -23,7 +23,7 @@ public:
                         stn += cur; 
                         dp[i + 1].push_back(stn); 
                     }
-                    validIdx.insert(i); 
+                    // validIdx.insert(i); 
                 }
             }
         }
