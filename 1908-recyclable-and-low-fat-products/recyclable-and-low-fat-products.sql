@@ -1,4 +1,4 @@
 -- Write your PostgreSQL query statement below
-select p.product_id
-from Products as p
-where p.low_fats = 'Y' and p.recyclable = 'Y'; 
+SELECT p.product_id
+FROM Products AS p
+WHERE p.low_fats = 'Y' AND p.recyclable = 'Y'; 
