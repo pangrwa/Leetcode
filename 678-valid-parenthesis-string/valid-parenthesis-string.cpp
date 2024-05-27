@@ -17,12 +17,6 @@ public:
                 }
             }
         }
-        for (int i = 0; i < n + 1; ++i) { 
-            for (int j = 0; j < n + 1; ++j) {
-                cout << dp[i][j] << " ";
-            }
-            cout << endl; 
-        }
         return dp[0][0]; // if s can close with 0 open brackets on the left
     }
 };
