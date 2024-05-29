@@ -1,37 +1,26 @@
 class Solution {
 public:
     int numSteps(string s) {
-        int res = 0; 
-        while (s.size() > 1) {
-            int n = s.size() - 1; 
-            if (s[n] == '1') { // odd
-                int idx = n; 
-                while (idx >= 0 && s[idx] == '1') {
-                    s[idx] = '0'; 
-                    idx--; 
-                }
-                if (idx == -1) {
-                    s = '1' + s; 
-                } else {
-                    s[idx] = '1'; 
-                }
-            } else {    // even
-                s.pop_back(); 
+        int res = 0;
+        int carry = 0; // to represent to bringing over of 1 bit when +
+        for (int i = s.size() - 1; i > 0; --i) {
+            if ( ((s[i] - '0') + carry) % 2 == 1) { // odd
+                carry = 1; // bringing the 1 bit over
+                res += 2; 
+            } else {
+                res += 1; 
             }
-            res++; 
         }
-        return res; 
+        // carry = 1, apply one last operation to remove the last 0
+        return res + carry; 
     }
 };
 
-
 /*
-how to determine if a number if odd or even in binary representation?
-- the LSB
+modify the question to removing the N-1 last number of bits
+- iterate from back to front
+    -1: + 2 operations since odd (+1, divide by two to remove the 0)
+    -0: + 1 operation since even
+- careful when bit is 1 cuz you + 1, have carryover of 1
 
-how to add 1?
--  100 011
-- iterate from the back till you see the first 0
-how to divide by 2? 
-- slice the substr
 */ 
