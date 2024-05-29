@@ -16,7 +16,7 @@ public:
                     s[idx] = '1'; 
                 }
             } else {    // even
-                s = s.substr(0, n); 
+                s.pop_back(); 
             }
             res++; 
         }
