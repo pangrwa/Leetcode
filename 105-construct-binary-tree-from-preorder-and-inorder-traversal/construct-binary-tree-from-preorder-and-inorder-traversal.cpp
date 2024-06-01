@@ -23,7 +23,7 @@ public:
     }
 
     TreeNode* dfs(vector<int>& preorder, vector<int>& inorder, int left, int right) {
-        if (preOrderPointer >= size || left > right || right < left) {
+        if (left > right || right < left) {
             return nullptr; // nullchild
         }
         int inOrderIdx = inOrderMap[preorder[preOrderPointer]];
