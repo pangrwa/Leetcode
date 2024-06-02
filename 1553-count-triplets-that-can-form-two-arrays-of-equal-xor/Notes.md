@@ -1,1 +1,1 @@
-<h2>count-triplets-that-can-form-two-arrays-of-equal-xor Notes</h2><hr>[ Time taken: 1 hr 6 m 40 s ]
+<h2>count-triplets-that-can-form-two-arrays-of-equal-xor Notes</h2><hr>[ Time taken: 7 m 25 s ]
