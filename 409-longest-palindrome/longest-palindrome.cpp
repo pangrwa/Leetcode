@@ -1,44 +1,24 @@
 class Solution {
 public:
     int longestPalindrome(string s) {
-        unordered_map<char, int> counter; 
-        for (char c : s) {
-            counter[c] += 1;
-        }
-        vector<deque<pair<char, int>>> pali(2);
-        for (const auto& p : counter) {
-            if (p.second > 1) {
-                pali[0].push_back(make_pair(p.first, p.second)); 
-            } else {
-                pali[1].push_back(make_pair(p.first, p.second)); 
-            }
-        }
-
+        unordered_set<char> tracker;
         int res = 0; 
-        while (pali[0].size() > 0) {
-            pair<char, int> fnt = pali[0].front(); 
-            pali[0].pop_front(); 
-            res += 2; 
-            fnt.second -= 2; 
-
-            if (fnt.second == 1) {
-                pali[1].push_back(fnt); 
-            } else if (fnt.second > 1) {
-                pali[0].push_back(fnt); 
+        for (char c : s) {
+            if (tracker.contains(c)) {
+                tracker.erase(c);
+                res += 2; 
+            } else {
+                tracker.insert(c); 
             }
         }
-
-        if (!pali[1].empty()) {
-            res++; 
-        }
-        return res; 
+        return tracker.size() > 0 ? res + 1 : res; 
     }
 };
 
 /*
-for odd lengths-> only middle character can be 1 
-for even lengths -> all charactesr must have a matching pair (even)
+iterate through the string, if there's match in the tracker
+- means we have matching pair
 
-while possible charactesr with even length
-
+at the end if tracker have elements inside means, we can use it
+    for our middle element
 */
