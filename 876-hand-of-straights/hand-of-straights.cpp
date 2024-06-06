@@ -44,7 +44,6 @@ public:
             // find the next start point
             int pnStart = p1.first;  
             while (freq.find(pnStart) != freq.end()) {
-                cout << "pnStart: " << pnStart << "remain: " << freq[pnStart] << endl; 
                 if (freq[pnStart] > 0) {
                     startPoints.push_back(make_pair(pnStart, freq[pnStart]));
                     break; 
