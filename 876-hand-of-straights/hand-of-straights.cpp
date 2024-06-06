@@ -15,7 +15,6 @@ public:
                 startPoints.push_back(make_pair(pair.first, freq[pair.first]));
             }
         }
-        cout << startPoints.size() << endl; 
         while (!startPoints.empty()) {
             pair<int, int> p1 = startPoints.front(); 
             startPoints.pop_front(); 
