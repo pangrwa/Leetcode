@@ -1,41 +1,25 @@
 class Solution {
 public:
     string replaceWords(vector<string>& dictionary, string sentence) {
+        istringstream ss(sentence); 
+        unordered_set<string> root(dictionary.begin(), dictionary.end());
         string token; 
-        stringstream ss(sentence);
-        vector<string> s;
+        string res; 
         while (getline(ss, token, ' ')) {
-            s.push_back(token); 
+            res += shortestRoot(token, root) + " "; 
         }
-        unordered_set<string> root(dictionary.begin(), dictionary.end()); 
-        string res = ""; 
-
-        for (int i = 0; i < s.size(); ++i) {
-            string word = s[i]; 
-            string builder = "";
-            bool hasRoot = false; 
-            for (char c : word) {
-                builder += string(1, c); 
-                if (root.find(builder) != root.end()) {
-                    res += builder;
-                    hasRoot = true; 
-                    break; 
-                }
-            }
-            if (!hasRoot) {
-                res += builder; 
-            }
-
-            if (i < s.size() - 1) {
-                res += " "; 
-            }
-        }
-
+        res.pop_back(); // remove last white space
         return res; 
     }
+
+    string shortestRoot(string token, unordered_set<string> root) { 
+        string builder = "";
+        for (int i = 0; i < token.size(); i++) {
+            builder += token[i]; 
+            if (root.find(builder) != root.end()) {
+                return builder; 
+            }
+        }
+        return token; 
+    }
 };
-/*
-brute force approach iterate each word in the sentence
-    the moment we find the first matching (also the shortest matchign)
-    replace it
-*/ 
