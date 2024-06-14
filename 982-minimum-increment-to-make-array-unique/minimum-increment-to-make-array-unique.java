@@ -1,11 +1,23 @@
 class Solution {
     public int minIncrementForUnique(int[] nums) {
-        Arrays.sort(nums);
-        int res = 0;
-        for (int i = 1; i < nums.length; ++i) {
-            if (nums[i] <= nums[i - 1]) {
-                res += (nums[i - 1] - nums[i] + 1); 
-                nums[i] = nums[i - 1] + 1; 
+        int max = 0;
+        int res = 0; 
+        for (int val : nums) {
+            max = Math.max(val, max); 
+        }  
+        // if all n (10) elements are 1, per say, then 
+            // we need at least 10 space
+        int[] freq = new int[nums.length + max];  
+        for (int i = 0; i < nums.length; ++i) {
+            freq[nums[i]] += 1; 
+        }
+
+        for (int i = 0; i < freq.length; ++i) {
+            if (freq[i] > 1) {
+                int carryOver = freq[i] - 1; 
+                freq[i + 1] += carryOver; 
+                freq[i] = 1; 
+                res += carryOver; 
             }
         }
         return res; 
@@ -13,11 +25,5 @@ class Solution {
 }
 
 /*
-the benefit here is that you only can increment by 1
-
-how do you decide which numbers to move? 
-numbers that are already in their spot it's better to remain
-    as it is
-    3 2 1 1, just move 1 -> 4, rather than move all numbers up?
-    but this can result in O(n^2) to determine wat number to choose 
-*/
+count how many smaller elements than you? e
+*/ 
