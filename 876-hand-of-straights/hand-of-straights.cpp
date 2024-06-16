@@ -16,6 +16,7 @@ public:
                 startPoint--; 
             }
             
+            // not valid, means used it before
             if (freq[startPoint] == 0) {
                 continue; 
             }
