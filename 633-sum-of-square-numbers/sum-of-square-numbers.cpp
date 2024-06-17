@@ -1,16 +1,24 @@
 class Solution {
 public:
-    bool judgeSquareSum(int c) {
-        int left = 0; 
-        // O(logc)
-        int right = (long) sqrt(c); // largest value
+    bool existsSquare(int left, int right, int goal) {
         while (left <= right) { 
-            long sum = pow(left, 2) + pow(right , 2); 
-            if (sum == c) return true; 
-            if (sum > c) {
-                right--; 
+            long mid = left + (long) ( (right - left) / 2 ); 
+            if (mid * mid == goal) {
+                return true; 
+            }
+            if (mid * mid > goal) { 
+                right = mid - 1; 
             } else {
-                left++; 
+                left = mid + 1; 
+            }
+        }
+        return false; 
+    }
+    bool judgeSquareSum(int c) {
+        for (long i = 0; i * i <= c; ++i) { 
+            int remain = c - (i * i); 
+            if (existsSquare(0, remain, remain)) {
+                return true; 
             }
         }
         return false; 
@@ -26,4 +34,5 @@ i -> 0 - c
     check if remain is a square? 
 
 sqrt(value) must not have a decimal? 
+
 */ 
