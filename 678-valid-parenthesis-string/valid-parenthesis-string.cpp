@@ -1,36 +1,59 @@
 class Solution {
 public:
-    bool checkValidString(string s) {
-        vector<vector<bool>> dp(s.size() + 1, vector<bool>(s.size() + 1, false)); 
-        int n = s.size();
-        dp[n][0] = true; // "" can close with 0 open brackets 
-        for (int i = n - 1; i >= 0; --i) {
-            for (int j = 0; j <= i; ++j) { // # number of open bracket
-                char cur = s[i];
-                if (cur == '(') {
-                    dp[i][j] = dp[i + 1][j + 1]; 
-                } else if (cur == ')' && j > 0) {
-                    dp[i][j] = dp[i + 1][j - 1]; 
-                } else if (cur == '*') {
-                    bool ifClose = j > 0 ? dp[i + 1][j - 1] : false; 
-                    dp[i][j] = ifClose || dp[i + 1][j + 1] || dp[i + 1][j]; 
-                }
+    int numberOpen = 0;
+    vector<vector<int>> memo; 
+    vector<string> possible{ "(", "", ")"}; 
+
+    bool backtrack(int idx, const string& s) {
+        if (idx == s.size()) {
+            if (numberOpen == 0) {
+                return true; 
             }
+            return false; 
         }
-        return dp[0][0]; // if s can close with 0 open brackets on the left
+        if (memo[idx][numberOpen] != -1) {
+            // cout << idx << " " << numberOpen << "used memo" << endl; 
+            return memo[idx][numberOpen]; 
+        }
+        char cur = s[idx];
+        bool result = false; 
+        if (cur == '(') {
+            numberOpen++; 
+            result |= backtrack(idx + 1, s); 
+            numberOpen--; 
+        } else if (cur == ')') {
+            // check if there's something to close with
+            if (numberOpen > 0) { 
+                numberOpen--; 
+                result |= backtrack(idx + 1, s); 
+                numberOpen++;
+            }
+        } else {
+            numberOpen++; 
+            result |= backtrack(idx + 1, s); 
+            numberOpen--; 
+
+            if (numberOpen > 0) {
+                numberOpen--;
+                result |= backtrack(idx + 1, s); 
+                numberOpen++; 
+            }
+
+            result |= backtrack(idx + 1, s); 
+        }
+        memo[idx][numberOpen] = result;
+        // if (result) {
+        //     cout << memo[idx][numberOpen] << endl; 
+        // } 
+        return result;
+    }
+
+    bool checkValidString(string s) {
+        memo = vector(s.size(), vector<int>(s.size(), -1));
+        return backtrack(0, s);  
     }
 };
 
 /*
-how to break down into subproblem? 
-goal: given s, is it possible to close s with 0 open brackets on its left
-suppose i = (
-f(i:) is true only if f(i+1:) can close with 1 open bracket on its left
-suppose i = )
-f(i:) is true only if f(i+1:) can close with 1 less open bracket on its left
-
-
-base case: 
-f(last idx) = "" can only close if have 0 brackets on the left
-dp[idx][# number of open brackets on the left]?? 
-*/ 
+((*))
+*/
