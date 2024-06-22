@@ -20,7 +20,6 @@ class Solution {
                 int numEven = ext - right; 
                 
                 while (oddCounter == k) {
-                    System.out.printf("Left: %s, right: %s\n", left, right); 
                     if (nums[left] % 2 != 0) {
                         oddCounter--; 
                     }
