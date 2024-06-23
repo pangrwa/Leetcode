@@ -1,12 +1,5 @@
 class Solution {
 public:
-    void print(deque<int> temp) {
-        while (!temp.empty()) {
-            cout << temp.front() << " ";
-            temp.pop_front(); 
-        }
-        cout << endl; 
-    }
     int longestSubarray(vector<int>& nums, int limit) {
         int left = 0;
         int right = 0;
