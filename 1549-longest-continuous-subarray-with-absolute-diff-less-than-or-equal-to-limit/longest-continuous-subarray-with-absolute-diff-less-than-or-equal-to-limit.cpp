@@ -24,10 +24,6 @@ public:
                 minElements.pop_back();
             }
             minElements.push_back(right);
-            // cout << "Left: " << left << " right: " << right << " max: " << maxElements.front() << " min: " << minElements.front() << '\n';
-
-            // print(maxElements);
-            // print(minElements); 
             while (left <= right && abs(nums[maxElements.front()] - nums[minElements.front()]) > limit) {
                 left++; 
                 // clear the of bounds stack idx
@@ -38,11 +34,6 @@ public:
                     minElements.pop_front(); 
                 }
             }
-            // cout << "divier" << endl; 
-            // print(maxElements);
-            // print(minElements); 
-            // cout << "Left: " << left << " right: " << right << " max: " << maxElements.front() << " min: " << minElements.front() << '\n';
-
             res = max(res, right - left + 1);
             right++;
         }
